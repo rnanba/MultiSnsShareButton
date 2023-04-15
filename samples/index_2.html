@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multi SNS Share Button Sample 2 (nonconstructual index page)</title>
+    <link href="../mssb.css" rel="stylesheet">
+    <script src="../mssb.js"></script>
+    <script>
+      const config = {
+        lang: "en",
+        icon_prefix: "../icons/",
+        article_selector: "h2",
+        placeholder_extractor: (article, mssb) => {
+          let nextElm = article.nextElementSibling
+          while (nextElm != null && nextElm.tagName !== article.tagName) {
+            if (nextElm.className === mssb.placeholderClassName()) {
+              return nextElm
+            }
+            nextElm = nextElm.nextElementSibling
+          }
+          return null
+        },
+        title_extractor: (article, mssb) => {
+          return article.textContent
+        },
+        link_extractor: (article, mssb) => {
+          let nextElm = article.nextElementSibling
+          let url = null
+          while (nextElm !== null && nextElm.tagName !== article.tagName) {
+            let link = null
+            if ((link = nextElm.querySelector("a.permalink")) !== null) {
+              url = link.href
+            }
+            if (nextElm.className === mssb.placeholderClassName()) {
+              return url
+            }
+            nextElm = nextElm.nextElementSibling
+          }
+          return null
+        }
+      }
+      const mssb = new MultiSnsShareButton(config)
+    </script>
+  </head>
+  <body>
+    <h1>Multi SNS Share Button Sample 2 (nonconstructual index page)</h1>
+    <p><a href="index.html">>>constructual version</a></p>
+    <div class="mssb-placeholder"></div>
+    <hr>
+    <h2>ARTICLE 1</h2>
+    <p>article 1 contents...</p>
+    <p><a class="permalink" href="article_1.html">permalink</a></p>
+    <div class="mssb-placeholder"></div>
+    <h2>ARTICLE 2</h2>
+    <p>article 2 contents...</p>
+    <p><a class="permalink" href="article_2.html">permalink</a></p>
+    <div class="mssb-placeholder"></div>
+  </body>
+</html>

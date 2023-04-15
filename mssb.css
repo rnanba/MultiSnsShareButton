@@ -1,0 +1,110 @@
+:root {
+    --share-button-array-label: "Share!";
+    --share-button-array-label-font-size: 1.2rem;
+    --prefered-icon-size: 1.5rem;
+    --icon-scale-on-hover: 1.5;
+}
+.mssb-placeholder:before {
+    content: var(--share-button-array-label);
+    color: #aaa;
+    font-weight: bold;
+    font-size: var(--share-button-array-label-font-size);
+}
+.mssb-placeholder {
+    line-height: calc(max(var(--prefered-icon-size), 32px) * var(--icon-scale-on-hover));
+}
+.mssb-placeholder img {
+    vertical-align: middle;
+    /* do not change below (to obey twitter social icon guidline)*/
+    --icon-size: max(var(--prefered-icon-size), 32px);
+    --margin: calc(var(--icon-size) * 0.25);
+    height: var(--icon-size);
+    width: var(--icon-size);
+    margin-left:var(--margin);
+    margin-right:var(--margin);
+}
+.mssb-placeholder img:hover {
+    /* do not change below (to obey twitter social icon guidline)*/
+    --icon-size: calc(max(var(--prefered-icon-size), 32px) * var(--icon-scale-on-hover));
+    --margin: calc(var(--icon-size) * 0.25);
+    height: var(--icon-size);
+    width: var(--icon-size);
+    margin-left:var(--margin);
+    margin-right:var(--margin);
+}
+#mssb_mstdnshare::backdrop {
+    background-color: rgba(0,0,0,0.4);
+}
+#mssb_mstdnshare menu button {
+    appearance: none;
+    border: 0.1em #ccc solid;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    font-weight: bold;
+}
+dialog.mastodon {
+    color: #563ACC;
+    background-color: #bbbdff;
+    border-color: #563ACC;
+}
+dialog.mastodon menu button[value="default"] {
+    appearance: button;
+    color: white;
+    background-color: #563ACC;
+}
+dialog.misskey {
+    color: #74b900;
+    background-color: #edf6d9;
+    border-color: #74b900;
+}
+dialog.misskey menu button[value="default"] {
+    color: white;
+    background-color: #74b900;
+}
+#mssb_mstdnshare h4 {
+    margin-top: 0;
+    padding-top: 0;
+    text-align: left;
+}
+#mssb_mstdnshare h4 img {
+    display: inline-block;
+    width: 3em;
+    height: 3em;
+    margin-right: 0.8em;
+    margin-bottom: -1.0em;
+}
+#mssb_mstdnshare menu {
+    text-align: right;
+}
+#mssb_instance_input {
+    --place-holder-font-size: 0.8em;
+    width: calc(var(--place-holder-font-size) * 26);
+    padding: 0.5em;
+}
+#mssb_instance_input::placeholder {
+    font-size: var(--place-holder-font-size);
+}
+.mssb_input_label {
+    font-size: 90%;
+    margin-right: 0.5em;
+}
+
+.mssb_mastodon_sharebutton {
+    /* disable Mastodon share button */
+    /* display: none; */
+}
+
+.mssb_misskey_sharebutton {
+    /* disable Misskey share button */
+    /* display: none; */
+}
+
+.mssb_twitter_sharebutton {
+    /* disable Twitter share button */
+    /* display: none; */
+}
+
+.mssb_facebook_sharebutton {
+    /* disable Facebook share button */
+    /* display: none; */
+}

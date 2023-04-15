@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Multi SNS Share Button サンプル (一覧ページ)</title>
+    <link href="../mssb.css" rel="stylesheet">
+    <script src="../mssb.js"></script>
+    <script>
+      const config = {
+        lang: "ja",
+        icon_prefix: "../icons/",
+        article_selector: "div.article",
+        title_selector: "h2",
+        link_selector: "h2 a[href]"
+      }
+      const mssb = new MultiSnsShareButton(config)
+    </script>
+  </head>
+  <body>
+    <h1>Multi SNS Share Button サンプル (一覧ページ)</h1>
+    <p><a href="index_2.ja.html">>>非構造的な一覧ページ</a></p>
+    <div class="mssb-placeholder"></div>
+    <hr>
+    <div class="article">
+      <h2><a href="article_1.ja.html">記事 1</a></h2>
+      <p>記事 1 の内容...</p>
+      <div class="mssb-placeholder"></div>
+    </div>
+    <div class="article">
+      <h2><a href="article_2.ja.html">記事 2</a></h2>
+      <p>記事 2 の内容...</p>
+      <div class="mssb-placeholder"></div>
+    </div>
+  </body>
+</html>
