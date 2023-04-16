@@ -35,19 +35,19 @@ class MultiSnsShareButton {
   }
   messages = {
     share_with_mastodon: {
-      en: "Share with Mastodon",
+      en: "Share on Mastodon",
       ja: "Mastodon でシェア"
     },
     share_with_misskey: {
-      en: "Share with Misskey",
+      en: "Share on Misskey",
       ja: "Misskey でシェア"
     },
     share_with_twitter: {
-      en: "Share with Twitter",
+      en: "Share on Twitter",
       ja: "Twitter でシェア"
     },
     share_with_facebook: {
-      en: "Share with Facebook",
+      en: "Share on Facebook",
       ja: "Facebook でシェア"
     },
     select_instance: {
