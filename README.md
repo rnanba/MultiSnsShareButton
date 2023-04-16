@@ -1,4 +1,4 @@
-# Musasabi (むささび): Multi SNS Share Button (v1.0)
+# Musasabi (むささび): Multi SNS Share Button
 
 ## 概要
 
