@@ -1,10 +1,12 @@
-# Musasabi (むささび): Multi SNS Share Button
+# Musasabi (むささび): Multi SNS Share Button (v1.1)
+
+[ENGLISH](README.en.md)
 
 ## 概要
 
 Musasabi (以下 *mssb* と略記)は、複数の SNS に対応した Web サイト用シェアボタンです。以下の特徴があります。
 
-- Mastodon, Misskey, Twitter, Facebook に対応しています。
+- Mastodon, Misskey, Twitter, Bluesky, Facebook に対応しています。
 - 表示言語は日本語と英語に対応しています。
 - キーボードでも操作できます。
 - 依存ライブラリが一切なく簡単に設置できます。
@@ -43,8 +45,9 @@ Musasabi (以下 *mssb* と略記)は、複数の SNS に対応した Web サイ
 
 |名前       | 型       | 意味 |
 |:----------|:---------|:-----|
-|`lang` |`string` | *mssb* の UI の表示言語です。"en" (英語) または "ja" (日本語)が指定できます。|
-|`icon_prefix` | `string` | アイコンの参照先の設定です。<br>配置先がページと同じディレクトリでない場合はディレクトリパスを指定します(例: "icons/" (末尾にパス区切り文字が必要です))。<br>アイコンファイル名が既存のファイル名と重複する場合はアイコンファイル名を任意の接頭辞を付けた形にリネームし、この項目に接頭辞を指定してください(例: "mssb-" ("mastodon-icon.svg" 等を "mssb-mastodon-icon.svg" 等にリネームした場合))。|
+|`lang` |`string` | *mssb* の UI の表示言語です。`"en"` (英語) または `"ja"` (日本語)が指定できます。|
+|`icon_prefix` | `string` | アイコンの参照先の設定です。<br>配置先がページと同じディレクトリでない場合はディレクトリパスを指定します(例: `icons/` (末尾にパス区切り文字が必要です))。<br>アイコンファイル名が既存のファイル名と重複する場合はアイコンファイル名を任意の接頭辞を付けた形にリネームし、この項目に接頭辞を指定してください(例: `"mssb-"` ("mastodon-icon.svg" 等を "mssb-mastodon-icon.svg" 等にリネームした場合))。|
+|`sns_order`| `Array` of `string` | アイコンの並び順です。<br>SNS の名前をアイコンの表示順に列挙した配列を指定します。配列の先頭に記述した SNS のアイコンが一番左に表示されます。SNS の名前には `"mastodon"`, `"misskey"`, `"twitter"`, `"bluesky"`, `"facebook"` が指定できます。<br>この設定項目を記述して設定値で指定しなかったSNSのアイコンは表示されません。この設定項目を記述しなかった場合のデフォルト値は `[ "mastodon", "misskey", "twitter", "bluesky", "facebook" ]` です。 |
 
 次に、ページ内のシェアボタンを表示する場所に以下のように placeholder を追加します。
 
@@ -105,7 +108,7 @@ placeholder の追加はページ内の各記事の要素内に追加します�
 
 ### Mastodon, Misskey でシェア
 
-Mastodon でシェアする場合は以下のような手順になります(動画は Chrome 112 での様子)。
+Mastodon でシェアする場合は以下のような手順になります(動画は Chrome 131 での様子)。
 
 > ![Mastodonでシェア](screenshot/mastodon.ja.gif)
 
@@ -130,19 +133,19 @@ Misskey でシェアする場合も同様です。操作は同様ですが、ア
 
 > ![Misskey でシェア](screenshot/misskey.ja.gif)
 
-### Twitter, Facebook でシェア
+### Twitter, Bluesky, Facebook でシェア
 
-Twitter や Facebook でシェアする場合はアイコンをクリックすると直ちにブラウザに新しいタブが開いて、Twitter や Facebook の投稿画面が開きます。 
+Twitter, Bluesky, Facebook でシェアする場合はアイコンをクリックすると直ちにブラウザに新しいタブが開いて、各 SNS の投稿画面が開きます。 
 
 ## 高度な設定
 
-記事一覧ページの構造が非構造的な場合等で、`title_selector`, `link_selector` 等ではうまくタイトルや permalink を抽出できない場合は config の以下の設定項目を使用することで、解決するかもしれません(JavaScript のプログラミングスキルが必要です)。
+記事一覧ページの構造が非構造的な場合等で、`title_selector`, `link_selector` 等ではうまくタイトルや permalink を抽出できない場合は `config` の以下の設定項目を使用することで、解決するかもしれません(JavaScript のプログラミングスキルが必要です)。
 
 |名前       |型           | 意味 |
 |:----------|:------------|:-----|
-|`placeholder_extractor`|function(article, mssb)|引数 article (HTMLElement 型)に対応する placeholder (HTMLElement 型)を返す関数を指定します。article に適切な要素が渡されるように、`article_selector` で記事を識別可能な何らかの要素(タイトル等)が選択されるようにします。 必要に応じて mssb (MultiSnsShareButton 型)から config の設定値等を取得して関数内で利用できます。|
-|`title_extractor`|function(article, mssb)|引数 article に対応するタイトル文字列を返す関数を指定します。その他については `placeholder_extractor` と同様です。|
-|`link_extractor`|function(article, mssb)|引数 article に対応する permalink (URL文字列)を返す関数を指定します。その他については `placeholder_extractor` と同様です。|
+|`placeholder_extractor`|function(`article`, `mssb`)|引数 `article` (HTMLElement 型)に対応する placeholder (HTMLElement 型)を返す関数を指定します。`article` に適切な要素が渡されるように、`article_selector` で記事を識別可能な何らかの要素(タイトル等)が選択されるようにします。 必要に応じて引数 `mssb` (MultiSnsShareButton 型)から `config` の設定値等を取得して関数内で利用できます。|
+|`title_extractor`|function(`article`, `mssb`)|引数 `article` に対応するタイトル文字列を返す関数を指定します。その他については `placeholder_extractor` と同様です。|
+|`link_extractor`|function(`article`, `mssb`)|引数 `article` に対応する permalink (URL文字列)を返す関数を指定します。その他については `placeholder_extractor` と同様です。|
 
 具体的な設定例は [samples/index_2.ja.html](samples/index_2.ja.html) のソースコードを参考にしてください。
 
@@ -153,7 +156,7 @@ Twitter や Facebook でシェアする場合はアイコンをクリックす�
 - Q: シェアされた数を表示できませんか?
   - A: Mastodon, Misskey では無理なのと、外部サイトのスクリプトを実行しないポリシーで設計しているので、今のところそのような機能を実装する予定はありません。
 - Q: イーロン・マスクが嫌いです。Twitter のシェアボタンだけ外せませんか?
-  - A: セレクタ `.mssb_twitter_sharebutton` のルールで `display: none;` を指定してください。`mssb.css` にもコメントアウトした形で記述があります。他の SNS についても同様です。
+  - A: `config` の設定項目 `sns_order` を指定してください。指定値に `"twitter"` を含まない配列を指定しましょう。
 - Q: 自分のサイトに設置してみたところ、シェアボタンのレイアウトが崩れます。
   - A: サイトの既存の CSS スタイルシートのスタイル指定が `mssb.css` での指定より優先されてしまう場合があります。そのような場合は設置した既存の CSS スタイルシートまたは `mssb.css` を修正する必要があります。具体的な修正方法についてはサイトの CSS スタイルシートの内容によって異なるため、ここではお答えできません。
 - Q: [Missky.io](https://misskey.io) でのシェアに失敗することがあります。
@@ -175,3 +178,12 @@ Twitter や Facebook でシェアする場合はアイコンをクリックす�
 |misskey-icon.png   |syuilo and other contributors|CC BY-NC-SA 4.0|https://misskey-hub.net/appendix/assets.html<br>(余白を調整しています)|
 |twitter-icon.svg   |Twitter|Apache License 2.0|https://ja.m.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:Twitter-logo.svg |
 |facebook-icon.svg  |Facebook|public domain|https://ja.m.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB:2021_Facebook_icon.svg |
+|bluesky-icon.svg   |Public Benefit Corporation|public domain?|https://bsky.social/about/blog/press-faq<br>(余白を調整しています)|
+
+# 更新履歴
+
+- 2024-12-05: v1.1
+  - Bluesky 対応
+  - ボタンの並び順・表示可否のカスタマイズ機能追加
+- 2023-04-16: v1.0
+  - 初版
