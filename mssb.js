@@ -1,4 +1,5 @@
 class MultiSnsShareButton {
+  version = '1.1'
   config = null
   default_config = {
     lang: "en",
@@ -10,12 +11,14 @@ class MultiSnsShareButton {
     title_extractor: null,
     title_selector: null,
     link_extractor: null,
-    link_selector: null
+    link_selector: null,
+    button_order: [ "mastodon", "misskey", "twitter", "bluesky", "facebook" ]
   }
   icons = {
     mastodon: "mastodon-icon.svg",
     misskey: "misskey-icon.png",
     twitter: "twitter-icon.svg",
+    bluesky: "bluesky-icon.svg",
     facebook: "facebook-icon.svg"
   }
   instance_lists = {
@@ -49,6 +52,10 @@ class MultiSnsShareButton {
     share_with_facebook: {
       en: "Share on Facebook",
       ja: "Facebook でシェア"
+    },
+    share_with_bluesky: {
+      en: "Share on Bluesky",
+      ja: "Bluesky でシェア"
     },
     select_instance: {
       mastodon: {
@@ -155,24 +162,33 @@ class MultiSnsShareButton {
     
     document.querySelectorAll("." + this.placeholderClassName()).forEach(
       (placeholder) => {
-        placeholder.appendChild(this.createButton(
-          //this.icons.mastodon, msg.share_with_mastodon[lang],
-          "mastodon", lang,
-          (e) => { selectMastodonInstance("mastodon", e) }))
-        placeholder.appendChild(this.createButton(
-          //this.icons.misskey, msg.share_with_misskey[lang],
-          "misskey", lang, 
-          (e) => { selectMastodonInstance("misskey", e) }))
-        
-        placeholder.appendChild(this.createButton(
-          //this.icons.twitter, msg.share_with_twitter[lang],
-          "twitter", lang,
-          (e) => this.shareWithTwitter(e) ))
-
-        placeholder.appendChild(this.createButton(
-          //this.icons.facebook, msg.share_with_facebook[lang],
-          "facebook", lang,
-          (e) => this.shareWithFacebook(e) ))
+        this.config.button_order.forEach((sns_name) => {
+          switch (sns_name) {
+          case "mastodon":
+          case "misskey":
+            placeholder.appendChild(this.createButton(
+              sns_name, lang,
+              (e) => { selectMastodonInstance(sns_name, e) }))
+            break
+          case "twitter":
+            placeholder.appendChild(this.createButton(
+              "twitter", lang,
+              (e) => this.shareWithTwitter(e) ))
+            break
+          case "bluesky":
+            placeholder.appendChild(this.createButton(
+              "bluesky", lang,
+              (e) => this.shareWithBluesky(e) ))
+            break
+          case "facebook":
+            placeholder.appendChild(this.createButton(
+              "facebook", lang,
+              (e) => this.shareWithFacebook(e) ))
+            break;
+          default:
+            console.log("unknown SNS name '" + sns_name + "'.")
+          }
+        })
     })
   }
   createButton(type, lang, onclick) {
@@ -223,6 +239,14 @@ class MultiSnsShareButton {
     shareUrl += encodeURIComponent(metadata.url)
     window.open(shareUrl, "_blank")
   }
+  shareWithBluesky(event) {
+    event.preventDefault()
+    const metadata = this.getArticleMetadata(event.target)
+    let shareUrl = "https://bsky.app/intent/compose?text="
+    shareUrl += encodeURIComponent(metadata.url)
+    window.open(shareUrl, "_blank")
+  }
+
   getArticleMetadata(target) {
     const metadata = {
       title: document.title,
