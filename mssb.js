@@ -1,5 +1,5 @@
 class MultiSnsShareButton {
-  version = '1.1'
+  version = '1.1.1'
   config = null
   default_config = {
     lang: "en",
@@ -243,7 +243,7 @@ class MultiSnsShareButton {
     event.preventDefault()
     const metadata = this.getArticleMetadata(event.target)
     let shareUrl = "https://bsky.app/intent/compose?text="
-    shareUrl += encodeURIComponent(metadata.url)
+    shareUrl += encodeURIComponent(metadata.title + "\n" + metadata.url)
     window.open(shareUrl, "_blank")
   }
 

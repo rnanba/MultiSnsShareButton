@@ -178,6 +178,8 @@ Licenses of icon images follows:
 
 # Change History
 
+- 2024-12-07: v1.1.1
+  - Post of "Share on Bluesky" now contains article title.
 - 2024-12-05: v1.1
   - "Share on Bluesky" is now available.
   - Added customization function for button order and display availability.
